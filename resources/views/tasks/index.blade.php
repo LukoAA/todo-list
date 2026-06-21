@@ -14,7 +14,27 @@
     
     <ul>
         @forelse ($tasks as $task)
-            <li>{{ $task->title }}</li>
+            <li>
+                <form action="/tasks/{{ $task->id }}/toggle" method="POST" style="display:inline">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit">
+                        @if ($task->completed) ✅ @else ⬜ @endif
+                    </button>
+                </form>
+
+                @if ($task->completed)
+                    <s>{{ $task->title }}</s>
+                @else
+                    {{ $task->title }}
+                @endif
+
+                <form action="/tasks/{{ $task->id }}" method="POST" style="display:inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">🗑️</button>
+                </form>
+            </li>
         @empty
             <li>No tasks yet.</li>
         @endforelse

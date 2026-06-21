@@ -9,3 +9,5 @@ Route::get('/', function () {
 
 Route::get('/tasks', [TaskController::class, 'index']);
 Route::post('/tasks', [TaskController::class, 'store']);
+Route::patch('/tasks/{task}/toggle', [TaskController::class, 'toggle']);
+Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
